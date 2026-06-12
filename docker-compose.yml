@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  guard-core:
+    image: ai-code-guardian
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    environment:
+      - LOG_LEVEL=DEBUG
+  security-knowledge-graph:
+    image: graphdb
+    ports:
+      - "7474:7474"
