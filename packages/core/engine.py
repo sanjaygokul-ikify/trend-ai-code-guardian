@@ -21,13 +21,16 @@ class SecurityScoreEngine:
         except InvalidArtifactError as e:
             self.logger.error(f"Invalid artifact: {e}")
             raise SecurityScoringError("Failed to calculate security score")
+        except Exception as e:
+            self.logger.error(f"An unexpected error occurred: {e}")
+            raise SecurityScoringError("Failed to calculate security score due to unexpected error")
 
     def _extract_features(self, artifact: CodeArtifact) -> List[str]:
         # Implement feature extraction logic
         features: List[str] = []
         # For example:
         features.append(artifact.code_hash)
-        features.append(artifact.imports)
+        features.append(', '.join(artifact.imports))  # handle imports as a comma-separated string
         return features
 
     def _calculate_score(self, features: List[str], knowledge_graph: Dict[str, List[str]]) -> SecurityScore:
@@ -37,7 +40,7 @@ class SecurityScoreEngine:
         for feature in features:
             if feature in knowledge_graph:
                 score += 1.0
-        return score / len(features)
+        return score / len(features) if features else SecurityScore(0.0)  # handle division by zero
 
 
 class PatternDatabase:
