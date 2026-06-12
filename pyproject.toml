@@ -1,0 +1,4 @@
+[project]
+name = "ai-code-guardian"
+version = "0.1.0"
+description = "Autonomous security auditor for AI-generated code"
