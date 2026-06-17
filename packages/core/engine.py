@@ -30,7 +30,7 @@ class SecurityScoreEngine:
         features: List[str] = []
         # For example:
         features.append(artifact.code_hash)
-        features.append(', '.join(artifact.imports))  # handle imports as a comma-separated string
+        features.extend(artifact.imports)  # handle imports as separate features
         return features
 
     def _calculate_score(self, features: List[str], knowledge_graph: Dict[str, List[str]]) -> SecurityScore:
