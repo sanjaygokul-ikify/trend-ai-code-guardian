@@ -26,6 +26,8 @@ class SecurityScoreEngine:
             raise SecurityScoringError("Failed to calculate security score due to unexpected error")
 
     def _extract_features(self, artifact: CodeArtifact) -> List[str]:
+        if artifact is None:
+            raise InvalidArtifactError("Artifact cannot be None")
         # Implement feature extraction logic
         features: List[str] = []
         # For example:
@@ -40,7 +42,7 @@ class SecurityScoreEngine:
         for feature in features:
             if feature in knowledge_graph:
                 score += 1.0
-        return score / len(features) if features else SecurityScore(0.0)  # handle division by zero
+        return SecurityScore(score / len(features) if features else 0.0)  # handle division by zero
 
 
 class PatternDatabase:
