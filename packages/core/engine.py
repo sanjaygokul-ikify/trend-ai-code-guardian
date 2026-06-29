@@ -42,7 +42,11 @@ class SecurityScoreEngine:
         for feature in features:
             if feature in knowledge_graph:
                 score += 1.0
-        return SecurityScore(score / len(features) if features else 0.0)  # handle division by zero
+        # added a check to avoid division by zero
+        if features:
+            return SecurityScore(score / len(features))
+        else:
+            return SecurityScore(0.0)
 
 
 class PatternDatabase:
