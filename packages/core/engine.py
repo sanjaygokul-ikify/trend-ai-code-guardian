@@ -47,6 +47,9 @@ class SecurityScoreEngine:
             return SecurityScore(score / len(features))
         else:
             return SecurityScore(0.0)
+        # Added a check to avoid None values
+        if score is None:
+            return SecurityScore(0.0)
 
 
 class PatternDatabase:
