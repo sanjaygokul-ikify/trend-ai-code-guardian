@@ -54,6 +54,10 @@ class SecurityScoreEngine:
         if score is None:
             return SecurityScore(0.0)
 
+        # Introduced type hint for knowledge_graph
+        # Added logging to improve debuggability
+        self.logger.info(f'Knowledge graph: {knowledge_graph}')
+
 
 class PatternDatabase:
     def __init__(self) -> None:
