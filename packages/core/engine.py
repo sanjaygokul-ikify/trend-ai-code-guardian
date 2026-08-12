@@ -58,6 +58,11 @@ class SecurityScoreEngine:
         # Added logging to improve debuggability
         self.logger.info(f'Knowledge graph: {knowledge_graph}')
 
+        # Added a check for the knowledge graph being empty
+        if not knowledge_graph:
+            self.logger.warning("Knowledge graph is empty")
+            return SecurityScore(0.0)
+
 
 class PatternDatabase:
     def __init__(self) -> None:
